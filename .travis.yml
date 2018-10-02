@@ -17,10 +17,12 @@ install:
   - sudo /snap/bin/lxc launch ubuntu:18.04 snapcraft-$SNAPNAME
   - sleep 10 # Ugh. sleep for a bit to make sure snapd is started. FIXME with a better detection of /run/snapd.socket or whatever in the container
   - sudo /snap/bin/lxc exec "snapcraft-$SNAPNAME" -- /bin/bash -c "snap install snapcraft --edge --classic"
+  - sudo /snap/bin/lxc exec "snapcraft-$SNAPNAME" -- /bin/bash -c "apt update"
   - mkdir -p "$TRAVIS_BUILD_DIR/snaps-cache"
 script:
   - export PATH=/snap/bin:$PATH
   - export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
+  - export SNAPCRAFT_BUILD_ENVIRONMENT_CHANNEL_SNAPCRAFT=latest/edge
   - sudo snapcraft
   - sudo cp *.snap "$(echo "$TRAVIS_REPO_SLUG" | sed -e 's|.*/\(.*\)|\1|')-pr$TRAVIS_PULL_REQUEST.snap"
 after_success:
