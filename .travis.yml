@@ -15,6 +15,7 @@ install:
   - sudo /snap/bin/lxd init --auto
   - export SNAPNAME="$(grep ^name  snap/snapcraft.yaml | awk '{print $2}' )"
   - sudo /snap/bin/lxc launch ubuntu:18.04 snapcraft-$SNAPNAME
+  - sleep 10 # Ugh. sleep for a bit to make sure snapd is started. FIXME with a better detection of /run/snapd.socket or whatever in the container
   - sudo /snap/bin/lxc exec "snapcraft-$SNAPNAME" -- /bin/bash -c "snap install snapcraft --edge --classic"
   - mkdir -p "$TRAVIS_BUILD_DIR/snaps-cache"
 script:
