@@ -15,7 +15,7 @@ install:
   - sudo /snap/bin/lxd init --auto
   - export SNAPNAME="$(grep ^name  snap/snapcraft.yaml | awk '{print $2}' )"
   - sudo /snap/bin/lxc launch ubuntu:18.04 snapcraft-$SNAPNAME
-  - sudo /snap/bin/lxc exec "snapcraft-$SNAPNAME" "snap install snapcraft --edge --classic"
+  - sudo /snap/bin/lxc exec "snapcraft-$SNAPNAME" -- /bin/bash -c "snap install snapcraft --edge --classic"
   - mkdir -p "$TRAVIS_BUILD_DIR/snaps-cache"
 script:
   - export PATH=/snap/bin:$PATH
