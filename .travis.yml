@@ -22,6 +22,7 @@ install:
 script:
   - export PATH=/snap/bin:$PATH
   - export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
+  - export SNAPCRAFT_ENABLE_SILENT_REPORT=on
   - export SNAPCRAFT_BUILD_ENVIRONMENT_CHANNEL_SNAPCRAFT=latest/edge
   - sudo snapcraft
   - sudo cp *.snap "$(echo "$TRAVIS_REPO_SLUG" | sed -e 's|.*/\(.*\)|\1|')-pr$TRAVIS_PULL_REQUEST.snap"
