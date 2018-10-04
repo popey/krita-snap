@@ -159,7 +159,6 @@ parts:
     override-build: |
       cd source
       cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/usr"
-      make
-      make install
+      make install DESTDIR=$SNAPCRAFT_PART_INSTALL`
     prime:
       - usr/lib
